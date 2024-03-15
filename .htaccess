@@ -7,3 +7,7 @@ RewriteRule ^ index.php [QSA,L]
 
 #cau hinh item?id
 RewriteRule ^item$ /item.php [QSA,L]
+#cau hinh delete?id
+RewriteRule ^delete$ /delete.php [QSA,L]
+#cau hinh edit?id
+RewriteRule ^update$ /update.php [QSA,L]

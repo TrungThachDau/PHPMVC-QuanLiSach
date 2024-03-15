@@ -14,7 +14,7 @@ $admin = new AdminController($conn);
 $sach = $admin->getAllBooks();
 ?>
 <div>
-    <a href="/Admin/Create">Thêm sản phẩm mới</a>
+    <a href="/admin/create">Thêm sản phẩm mới</a>
     <h2>Danh sách sản phẩm</h2>
     <select class="form-select" id="SortDrop" name="SortDrop" onchange="Sort()">
         <option value="">Sắp xếp</option>
@@ -45,8 +45,8 @@ $sach = $admin->getAllBooks();
             echo '<td>
                     <a href="/item?Id='.$item->Id.'">Chi tiết</a>
                    </td>
-            <td><a href="/Admin/Edit/'.$item->Id.'">Sửa</a></td>
-            <td><a href="/Admin/Delete/'.$item->Id.'">Xóa</a></td>';
+            <td><a href="/admin/update?Id='.$item->Id.'">Sửa</a></td>
+            <td><a href="/admin/delete?Id='.$item->Id.'">Xóa</a></td>';
             echo '</tr>';
         }
         ?>

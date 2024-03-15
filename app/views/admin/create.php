@@ -9,36 +9,35 @@ require_once 'app/controllers/AdminController.php';
 
     ?>
 </header>
+<?php
+global $conn;
+$admin = new AdminController($conn);
+$tacgia = $admin->getAllAuthors();
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $admin->createBooks($_POST);
+}
+?>
+<div class="container">
 
-<div>
-    <a> Thêm sách mới</a>
-    <form method="post" class="w-50 m-auto" enctype='multipart/form-data'>
-        <div class="mb-3">
-            <label for="name" class="form-label">Name (*)</label>
-            <input class="form-control" id="name" name="name" value="<?= $name ?>" /> <span class="text-danger fw-bold"><?= $nameErrors ?></span>
+    <h3>Thêm sách mới</h3>
+    <form action="/admin/create" method="post">
+        <div class="form-group">
+            <label class="form-label" for="TenSach">Tên sách:</label>
+            <input class="form-control" placeholder="Nhập tên sách" type="text" id="TenSach" name="TenSach" required><br>
         </div>
-        <div class="mb-3">
-            <label for="desc" class="form-label">Description (*)</label>
-            <textarea class="form-control" id="desc" name="desc" rows="4"><?= $desc ?></textarea> <span class="text-danger fw-bold"><?= $descErrors ?></span>
+        <div class="form-group">
+            <label for="nxb">Nhà xuất bản:</label>
+            <input type="text" class="form-control" id="nxb" name="nxb" required><br>
         </div>
-        <div class="mb-3">
-            <label for="price" class="form-label">Price (*)</label>
-            <input class="form-control" id="price" name="price" type="number" value="<?= $price ?>" /> <span class="text-danger fw-bold"><?= $priceErrors ?></span>
-        </div>
-        <div class="mb-3">
-            <label for="file">Image file</label>
-            <input class="form-control" id="file"type="file" name="file" />
-        </div>
-        <h5>Chọn Loại Sản Phẩm</h5>
-        <?php foreach ($categories as $cate) : ?>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="category<?= $cate->id ?>" value="<?= $cate->id ?>">
-                <label class="form-check-label" for="category<?= $cate->id ?>">
-                    <?= $cate->name ?>
-                </label>
-            </div>
-        <?php endforeach; ?>
-        <button type="submit" class="btn btn-primary">Add new</button>
+        <!-- Dropdown danh sách loại sách -->
+        <label for="Tacgia">Tác giả:</label>
+        <select class="form-select" id="Tacgia" name="Tacgia">
+            <?php foreach ($tacgia as $tacgia): ?>
+                <option value="<?php echo $tacgia['Id']; ?>"><?php echo $tacgia['TenTacGia']; ?></option>
+            <?php endforeach; ?>
+        </select><br>
+
+        <input type="submit" value="Thêm sách">
     </form>
 </div>
 <footer>

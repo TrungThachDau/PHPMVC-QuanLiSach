@@ -25,6 +25,15 @@ switch ($path) {
     case "/admin/logout":
         require __DIR__ . '/app/views/admin/logout.php';
         break;
+    case "/admin/create":
+        require __DIR__ . '/app/views/admin/create.php';
+        break;
+    case "/admin/delete":
+        require __DIR__ . '/app/views/admin/delete.php';
+        break;
+    case "/admin/update":
+        require __DIR__ . '/app/views/admin/update.php';
+        break;
     // Thêm các trường hợp khác tại đây
     default:
         http_response_code(404);

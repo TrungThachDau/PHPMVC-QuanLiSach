@@ -15,23 +15,9 @@ require_once 'app/controllers/AdminController.php';
 
 </header>
 <?php
-// item.php - Trang chi tiết sách
-// $book là biến được truyền từ controller
-// $book = new Sach();
-// $book->Id = 1;
-
-// item.php - Trang chi tiết sách
-
 global $conn;
 $admin = new AdminController($conn);
-$sach = $admin->Detail(1);
-
-// Kiểm tra xem $sach có phải là null không
-if($sach == null) {
-    // Nếu không phải null, hiển thị Id của sách
-    echo "Không tìm thấy sách";
-}
-
+$sach = $admin->Detail($ItemId);
 
 ?>
 <div class="container">

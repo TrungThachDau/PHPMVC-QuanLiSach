@@ -87,7 +87,7 @@ require_once 'app/models/Sach.php';
 //            }
 //            return $book;
 // Sử dụng prepared statement để tránh SQL Injection
-         $query = "SELECT * FROM Sach WHERE Id = 1";
+         $query = "SELECT * FROM Sach WHERE Id = $Id";
          $params = array($Id);
          $stmt = sqlsrv_query($this->conn, $query, $params);
 
@@ -110,17 +110,25 @@ require_once 'app/models/Sach.php';
              echo "Không tìm thấy sách.";
          }
      }
-        public function create()
+        public function getAllAuthors()
         {
-            $query = "SELECT * FROM LoaiSach";
+            $query = "SELECT * FROM TacGia";
             $stmt = sqlsrv_query($this->conn, $query);
             if ($stmt === false) {
                 die(print_r(sqlsrv_errors(), true));
             }
-            $categories = [];
+
+            $authors = [];
+
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $categories[] = $row;
+                $authors[] = $row;
             }
+                
+            return $authors;
+        }
+        public function createBooks()
+        {
+            
             if($_SERVER['REQUEST_METHOD']==='POST')
             {
                 $book = new Sach();
@@ -135,9 +143,29 @@ require_once 'app/models/Sach.php';
                     die(print_r(sqlsrv_errors(), true));
                 }
                 header('Location: /admin/tat-ca-san-pham');
-
+                exit;
             }
-
+        }
+        public function deleteBooks($Id)
+        {
+            $query = "DELETE FROM Sach WHERE Id = ?";
+            $params = array($Id);
+            $stmt = sqlsrv_query($this->conn, $query, $params);
+            if ($stmt === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            header('Location: /tat-ca-san-pham');
+            exit;
+        }
+        public function updateBooks($Id, $TenSach, $nxb, $Tacgia)
+        {
+            $query = "UPDATE Sach SET TenSach = ?, nxb = ?, Tacgia = ? WHERE Id = 1";
+            $params = array($TenSach, $nxb, $Tacgia, $Id);
+            $stmt = sqlsrv_query($this->conn, $query, $params);
+            if ($stmt === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            header('Location: /tat-ca-san-pham');
         }
  }
 ?>
